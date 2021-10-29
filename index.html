@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <a href="#">Link</a>
+        <div class="mt-5 ">
+            <div class="">
+                <fieldset>
+                    <legend>Text alignment</legend>
+                    <button id="prev" class="btn btn-primary" aria-label="Prev value"><i class="fa fa-caret-left"
+                            aria-hidden="true"></i></button>
+                    <span id="alert" role="alert">Left</span>
+                    <button id="next" class="btn btn-primary" aria-label="Next value"><i class="fa fa-caret-right"
+                            aria-hidden="true"></i></button>
+                </fieldset>
+            </div>
+        </div>
+        <a href="#">Link</a>
+    </div>
+    <script>
+        const values = ["Left", "Center", "Right"];
+        const alert = document.querySelector("#alert")
+
+        const otherValue = (currentValue) => {
+
+            let newValue = null
+
+            do
+                newValue = Math.floor(Math.random() * 3)
+            while (newValue == currentValue)
+
+            return newValue
+
+        }
+
+        const changeValue = () => {
+
+            const prevValue = values.indexOf(alert.innerHTML)
+            let index = otherValue(prevValue)
+
+            console.log(index, "-", prevValue)
+            alert.innerHTML = values[index]
+        }
+
+        document.querySelector("#prev").addEventListener("click", changeValue)
+        document.querySelector("#next").addEventListener("click", changeValue)
+
+    </script>
+</body>
+
+</html>

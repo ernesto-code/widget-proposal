@@ -11,22 +11,25 @@
 </head>
 
 <body>
-    <div class="container">
-        <a href="#">Link</a>
-        <div class="mt-5 ">
-            <div class="">
-                <fieldset>
-                    <legend>Text alignment</legend>
-                    <button id="prev" class="btn btn-primary" aria-label="Prev value"><i class="fa fa-caret-left"
-                            aria-hidden="true"></i></button>
-                    <span id="alert" role="alert">Left</span>
-                    <button id="next" class="btn btn-primary" aria-label="Next value"><i class="fa fa-caret-right"
-                            aria-hidden="true"></i></button>
-                </fieldset>
+    <main>
+        <div class="container">
+            <a href="#">Sample</a>
+            <div class="row mt-5 ">
+                <div class="col-2 bg-light border rounded pb-3">
+                    <fieldset>
+                        <legend>Text alignment</legend>
+                        <button id="prev" class="btn btn-primary" aria-label="Prev value"><i class="fa fa-caret-left"
+                                aria-hidden="true"></i></button>
+                        <span id="alert" role="alert">Left</span>
+                        <button id="next" class="btn btn-primary" aria-label="Next value"><i class="fa fa-caret-right"
+                                aria-hidden="true"></i></button>
+                    </fieldset>
+                </div>
             </div>
+            <a href="#">Sample</a>
         </div>
-        <a href="#">Link</a>
-    </div>
+    </main>
+
     <script>
         const values = ["Left", "Center", "Right"];
         const alert = document.querySelector("#alert")

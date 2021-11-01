@@ -56,12 +56,13 @@
                 currentValue.innerHTML = values[1]
 
                 toggleButton.setAttribute("aria-pressed", "true")
-                toggleButton.setAttribute("aria-label", controlLabel + " " + nextValue)
+                toggleButton.setAttribute("aria-label", controlLabel + " " + values[1])
 
                 toggleButton.classList.add("bg-dark")
                 toggleButton.classList.add("text-white")
             }
 
+            console.log(currentValue.innerHTML)
         }
 
         toggleButton.addEventListener("click", changeValue)

@@ -5,58 +5,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Widget component</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 </head>
 
 <body>
     <main>
+        <div class="container mt-3">
+            <a href="http://google.com">Google</a>
+        </div>
+
         <div class="container">
-            <a href="#">Sample</a>
-            <div class="row mt-5 ">
-                <div class="col-2 bg-light border rounded pb-3">
-                    <fieldset>
-                        <legend>Text alignment</legend>
-                        <button id="prev" class="btn btn-primary" aria-label="Prev value"><i class="fa fa-caret-left"
-                                aria-hidden="true"></i></button>
-                        <span id="alert" role="alert">Left</span>
-                        <button id="next" class="btn btn-primary" aria-label="Next value"><i class="fa fa-caret-right"
-                                aria-hidden="true"></i></button>
-                    </fieldset>
-                </div>
-            </div>
-            <a href="#">Sample</a>
+            <button id="toggle-button" class=" border mt-5 rounded" style="width:10em;height:10em" aria-pressed="false"
+                aria-label="Text alignment">
+                <span class="fw-bold">Text alignment</span>
+                <div id="current-value">Off</div>
+            </button>
         </div>
     </main>
 
     <script>
-        const values = ["Left", "Center", "Right"];
+        const values = ["Off", "Left", "Center", "Right"];
+        const controlLabel = "Text alignment"
+
         const alert = document.querySelector("#alert")
-
-        const otherValue = (currentValue) => {
-
-            let newValue = null
-
-            do
-                newValue = Math.floor(Math.random() * 3)
-            while (newValue == currentValue)
-
-            return newValue
-
-        }
+        const toggleButton = document.querySelector("#toggle-button")
+        const currentValue = document.querySelector("#current-value")
 
         const changeValue = () => {
 
-            const prevValue = values.indexOf(alert.innerHTML)
-            let index = otherValue(prevValue)
+            if (currentValue.innerHTML != "Off") {
+                if (currentValue.innerHTML == "Right") {
+                    currentValue.innerHTML = values[0]
 
-            console.log(index, "-", prevValue)
-            alert.innerHTML = values[index]
+                    toggleButton.setAttribute("aria-pressed", "false")
+                    toggleButton.setAttribute("aria-label", controlLabel + " " + values[0])
+
+                    toggleButton.classList.remove("bg-dark")
+                    toggleButton.classList.remove("text-white")
+
+                } else {
+                    const nextValue = values[values.indexOf(currentValue.innerHTML) + 1]
+                    currentValue.innerHTML = nextValue
+                    toggleButton.setAttribute("aria-label", controlLabel + " " + nextValue)
+                }
+
+            }
+            else {
+                currentValue.innerHTML = values[1]
+
+                toggleButton.setAttribute("aria-pressed", "true")
+                toggleButton.setAttribute("aria-label", controlLabel)
+
+                toggleButton.classList.add("bg-dark")
+                toggleButton.classList.add("text-white")
+            }
+
         }
 
-        document.querySelector("#prev").addEventListener("click", changeValue)
-        document.querySelector("#next").addEventListener("click", changeValue)
+        toggleButton.addEventListener("click", changeValue)
+
 
     </script>
 </body>

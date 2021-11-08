@@ -8,6 +8,11 @@
     <title>Widget component</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <style>
+        button:hover {
+            color: blue !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -19,7 +24,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-2">
-                    <button id="toggle-button" class=" border mt-5 rounded" style="width:10em;height:10em"
+                    <button id="toggle-button" class="border mt-5 rounded" style="width:10em;height:10em"
                         aria-pressed="false">
                         <span class="fw-bold">Text alignment</span>
                         <div id="current-value">Off</div>
@@ -28,6 +33,29 @@
 
             </div>
         </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <div id="" class="bg-light border mt-5 rounded" style="width:10em;height:10em">
+                        <div role="group" aria-labelledby="func-name">
+                            <span class="fw-bold" id="func-name">Text alignment</span>
+                            <div class="" style="height:50px; width:150px !important; padding:10px; ">
+                                <button id="align-prev" aria-label="Previous value" class="p-0"
+                                    style="border:none; color:#222;float:left;">
+                                    <i class="fa fa-chevron-circle-left fa-2x" aria-hidden="true"></i>
+                                </button>
+                                <div id="seq-current-value" style="text-align:center;float:left;">Off</div>
+                                <button id="align-next" aria-label="Next value" class="p-0"
+                                    style="border:none; color:#222;float:right;">
+                                    <i class="fa fa-chevron-circle-right fa-2x" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="alert" class="sr-only" role="status"></div>
     </main>
 
@@ -38,6 +66,29 @@
         const alert = document.querySelector("#alert")
         const toggleButton = document.querySelector("#toggle-button")
         const currentValue = document.querySelector("#current-value")
+
+        const alignPrev = document.querySelector("#align-prev")
+        const alignNext = document.querySelector("#align-next")
+        const seqCurrentValue = document.querySelector("#seq-current-value")
+        let value = null
+
+        const nextValue = (current) => {
+            switch (current) {
+                case "Left": { return values[2]; break }
+                case "Center": { return values[3]; break }
+                case "Right": { return values[0]; break }
+                default: { return values[1]; break }
+            }
+        }
+        const prevValue = (current) => {
+            switch (current) {
+                case "Left": { return values[0]; break }
+                case "Center": { return values[1]; break }
+                case "Right": { return values[2]; break }
+                default: { return values[3]; break }
+
+            }
+        }
 
         const changeValue = () => {
 
@@ -77,6 +128,24 @@
         }
 
         toggleButton.addEventListener("click", changeValue)
+
+        alignPrev.addEventListener("click", () => {
+
+            seqCurrentValue.innerHTML = prevValue(seqCurrentValue.innerHTML)
+            seqCurrentValue.innerHTML == "Off" ?
+                alert.innerHTML = "Text alignment Off" :
+                alert.innerHTML = controlLabel + " " + seqCurrentValue.innerHTML
+        })
+
+        alignNext.addEventListener("click", () => {
+            seqCurrentValue.innerHTML = nextValue(seqCurrentValue.innerHTML)
+            seqCurrentValue.innerHTML == "Off" ?
+                alert.innerHTML = "Text alignment Off" :
+                alert.innerHTML = controlLabel + " " + seqCurrentValue.innerHTML
+        })
+
+
+
 
 
     </script>

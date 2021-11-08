@@ -37,15 +37,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-2">
-                    <div id="" class="bg-light border mt-5 rounded" style="width:10em;height:5em">
-                        <div role="group" aria-labelledby="func-name">
-                            <div class="pt-1 fw-bold text-center " id="func-name">Text alignment</div>
+                    <div id="group-container" class="bg-light border mt-5 rounded" style="width:10em;height:5em">
+
+                        <div role="group" aria-labelledby="text-alignment">
+                            <div id="text-alignment">
+                                <div class="pt-1 fw-bold text-center " id="func-name">Text alignment
+                                    <!--span class="sr-only" id="seq-current-hidden-value">Off</!--span-->
+                                </div>
+                            </div>
                             <div class="" style="height:50px; width:150px !important; padding:10px; ">
                                 <button id="align-prev" aria-label="Previous value" class="p-0"
                                     style="border:none; color:#222;float:left;">
                                     <i class="fa fa-chevron-circle-left fa-2x" aria-hidden="true"></i>
                                 </button>
-                                <div id="seq-current-value"
+                                <div id="seq-current-value" aria-hidden="true"
                                     style="float:left; display:block;width:50%; text-align:center">
                                     Off</div>
                                 <button id="align-next" aria-label="Next value" class="p-0"
@@ -57,6 +62,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="container mt-3">
+            <a href="http://google.com">Google</a>
         </div>
 
         <div id="alert" class="sr-only" role="status"></div>
@@ -130,6 +139,19 @@
             //console.log(currentValue.innerHTML)
         }
 
+        const insertAlert = (message) => {
+            const temporaryAlert = document.createElement("div")
+            alert.parentElement.appendChild(temporaryAlert)
+
+            temporaryAlert.setAttribute("role", "status")
+            temporaryAlert.setAttribute("id", "temporary-alert")
+            temporaryAlert.classList.add("sr-only")
+
+            setTimeout(() => {
+                temporaryAlert.innerHTML = message
+            }, 50)
+        }
+
         toggleButton.addEventListener("click", changeValue)
 
         alignPrev.addEventListener("click", () => {
@@ -146,6 +168,46 @@
                 alert.innerHTML = "Text alignment Off" :
                 alert.innerHTML = controlLabel + " " + seqCurrentValue.innerHTML
         })
+
+
+        alignPrev.addEventListener("focus", () => {
+            console.log("Prev - focused")
+            if (!document.querySelector("#temporary-alert"))
+                insertAlert("Currently set: " + seqCurrentValue.innerHTML)
+        })
+        alignPrev.addEventListener("blur", (event) => {
+            console.log("Prev - Blured")
+
+            setTimeout(() => {
+                console.log(event.target.parentElement.contains(document.activeElement))
+                if (!event.target.parentElement.contains(document.activeElement))
+                    document.querySelector("#temporary-alert").remove()
+            }, 500)
+
+        })
+
+        alignNext.addEventListener("focus", () => {
+            console.log("Next - focused")
+            if (!document.querySelector("#temporary-alert"))
+                insertAlert("Currently set: " + seqCurrentValue.innerHTML)
+        })
+        alignNext.addEventListener("blur", (event) => {
+            console.log("Next - Blured")
+
+            setTimeout(() => {
+                console.log(event.target.parentElement.contains(document.activeElement))
+                if (!event.target.parentElement.contains(document.activeElement))
+                    document.querySelector("#temporary-alert").remove()
+            }, 500)
+
+        })
+
+
+
+
+
+
+
 
 
 
